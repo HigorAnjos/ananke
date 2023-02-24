@@ -5,6 +5,6 @@ namespace Ananke.Domain.Repository
 {
     public interface IScrapingRepository
     {
-        Task<List<Course>> GetDataPucAsync();
+        Task<List<Course>> GetCoursesAsync();
     }
 }

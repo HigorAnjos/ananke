@@ -1,9 +1,10 @@
-﻿using Ananke.Domain.Enums;
+﻿using Ananke.Domain.Entities.Base;
+using Ananke.Domain.Enums;
 using Ananke.Domain.ValueObjects;
 
 namespace Ananke.Domain.Entities
 {
-    public class Course
+    public class Course : EntityBase
     {
         public string Name { get; set; }
         public string Teacher { get; set; }
@@ -53,6 +54,7 @@ namespace Ananke.Domain.Entities
                 new Assessments(ExamsSemester.QuarterExam)
             };
             Works = new List<OtherWorks>();
+            SetId();
         }
 
         private double Truncate (double value, int decimalPlaces)
@@ -66,7 +68,7 @@ namespace Ananke.Domain.Entities
             return (NotaA * 3.35 + NotaB * 3.35) / 6.7; 
         }
 
-        public double CalcularMediaSemestralAsync()
+        public double CalcularMediaSemestral()
         {
             var n1 = CalcularMediaDasProvasNAsync(Exams[0].Note, Exams[1].Note);
             var n2 = CalcularMediaDasProvasNAsync(Exams[2].Note, Exams[3].Note);

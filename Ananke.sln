@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Presentation.IoC", "src\Pre
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ananke.Infra.Data", "src\Ananke.Infra.Data\Ananke.Infra.Data.csproj", "{CC4748D1-9773-4435-A421-97ABDA2D856F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unit.Test", "tests\Unit.Test\Unit.Test.csproj", "{60CECE6F-8D02-4534-91A1-E1183F357D9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unit.Test", "tests\Unit.Test\Unit.Test.csproj", "{60CECE6F-8D02-4534-91A1-E1183F357D9F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
