@@ -46,4 +46,4 @@ namespace Ananke.Domain.ValueObjects.Base
         }
     }
 }
-}
+

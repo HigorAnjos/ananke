@@ -1,15 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Ananke.Domain.Enums;
+using Ananke.Domain.ValueObjects.Base;
 
 namespace Ananke.Domain.ValueObjects
 {
-    public class SchedulesWeek
+    public partial class SchedulesWeek : ValueObjectBase<SchedulesWeek>
     {
-        // enum DayOfTheWeek
+        public DayOfTheWeek[] Week { get; private set; }
 
-        // enum ClassTime
+        public ClassTime Time { get; private set; }
+
+        public SchedulesWeek(ClassTime time, DayOfTheWeek[] week)
+        {
+            Week = week;
+            Time = time;
+        }
+
+        protected override bool EqualsCore(SchedulesWeek other)
+        {
+            return Week == other.Week && Time == other.Time;
+        }
+
+        protected override decimal GetHashCodeCore()
+        {
+            decimal hashCode = (Week.GetHashCode() + Time.GetHashCode()).GetHashCode();
+            return hashCode;
+        }
     }
 }
