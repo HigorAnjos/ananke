@@ -11,7 +11,7 @@ namespace Unit.Test.Domain.Entities
         public void Should_Calculate_Media_Projection_Correctly_Default(double mediaExpected)
         {
             var course = new Course();
-            var mediaSemestre = course.CalcularMediaSemestralAsync();
+            var mediaSemestre = course.CalcularMediaSemestral();
             mediaSemestre.Should().Be(mediaExpected);
         }
         [Theory]
@@ -26,7 +26,7 @@ namespace Unit.Test.Domain.Entities
             course.Exams[2].Note.Should().Be(otherP);
             course.Exams[3].Note.Should().Be(otherP);
 
-            var mediaSemestre = course.CalcularMediaSemestralAsync();
+            var mediaSemestre = course.CalcularMediaSemestral();
             mediaSemestre.Should().Be(mediaExpected);
         }
     }
