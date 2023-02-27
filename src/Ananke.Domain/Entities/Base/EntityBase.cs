@@ -54,6 +54,11 @@ namespace Ananke.Domain.Entities.Base
             Id = Guid.NewGuid();
         }
 
+        public void SetId(Guid id)
+        {
+            Id = id;
+        }
+
         public void SetCreatedAt()
         {
             CreatedAt = DateTime.Now;

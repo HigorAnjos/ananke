@@ -6,22 +6,28 @@ namespace Ananke.Domain.Entities
 {
     public class Course : EntityBase
     {
-        public string Name { get; set; }
+        public string Discipline { get; set; }
+        public string ClassNumber { get; set; }
         public string Teacher { get; set; }
         public int Credits { get; set; }
         public List<SchedulesWeek> Schedules { get; set; }
         public int Semester { get; set; }
         public List<Assessments> Exams { get; private set; }
-        public int TotalNumberOfClassesScheduled { get; set; }
-        public int TotalNumberOfAbsences { get; set; }
-        public DateTime AbsencesDate { get; set; }
+        public int PlannedClasses { get; set; }
+        public int ClassesGiven { get; set; }
+        public int AttendanceNumber { get; set; }
+        public double N1 { get; set; }
+        public double N2 { get; set; }
+        public List<DateTime> AbsencesDate { get; set; }
         public StatusCorse Status { get; set; }
         public double AI { get; set; }
         public List<OtherWorks> Works { get; set; }
         public double Media { get; set; } = 6;
-        public Course(string name, string teacher, int credits, List<SchedulesWeek> schedules, int semester, int totalNumberOfClassesScheduled, int totalNumberOfAbsences, DateTime absencesDate, StatusCorse status, float aI, List<OtherWorks> works, float media)
+
+        public Course(string discipline, string classNumber, string teacher, int credits, List<SchedulesWeek> schedules, int semester, int plannedClasses, int classesGiven, int attendanceNumber, List<DateTime> absencesDate, StatusCorse status, float aI, List<OtherWorks> works, float media)
         {
-            Name = name;
+            Discipline = discipline;
+            ClassNumber = classNumber;
             Teacher = teacher;
             Credits = credits;
             Schedules = schedules;
@@ -33,18 +39,23 @@ namespace Ananke.Domain.Entities
                 new Assessments(ExamsSemester.ThirdExam),
                 new Assessments(ExamsSemester.QuarterExam)
             };
-            TotalNumberOfClassesScheduled = totalNumberOfClassesScheduled;
-            TotalNumberOfAbsences = totalNumberOfAbsences;
+            PlannedClasses = plannedClasses;
+            ClassesGiven = classesGiven;
             AbsencesDate = absencesDate;
             Status = status;
             AI = aI;
             Works = works;
             Media = media;
+            AttendanceNumber = attendanceNumber;
+            SetId();
+            SetCreatedAt();
+            SetUpdatedAt();
         }
         public Course() 
         {
-            Name= string.Empty;
-            Teacher= string.Empty;
+            Discipline = string.Empty;
+            ClassNumber = string.Empty;
+            Teacher = string.Empty;
             Schedules = new List<SchedulesWeek>();
             Exams = new List<Assessments>()
             {
@@ -54,8 +65,60 @@ namespace Ananke.Domain.Entities
                 new Assessments(ExamsSemester.QuarterExam)
             };
             Works = new List<OtherWorks>();
+            AbsencesDate = new List<DateTime>();
             SetId();
+            SetCreatedAt();
+            SetUpdatedAt();
         }
+
+        public Course(string discipline, string classNumber, int plannedClasses, int classesGiven, int attendanceNumber, double n1, double n2)
+        {
+            Teacher = string.Empty;
+            Discipline = discipline;
+            ClassNumber = classNumber;
+            PlannedClasses = plannedClasses;
+            ClassesGiven = classesGiven;
+            AttendanceNumber = attendanceNumber;
+            N1 = n1;
+            N2 = n2;
+            Schedules = new List<SchedulesWeek>();
+            Exams = new List<Assessments>()
+            {
+                new Assessments(ExamsSemester.FirstExam),
+                new Assessments(ExamsSemester.SecondExam),
+                new Assessments(ExamsSemester.ThirdExam),
+                new Assessments(ExamsSemester.QuarterExam)
+            };
+            Works = new List<OtherWorks>();
+            AbsencesDate = new List<DateTime>();
+            SetId();
+            SetCreatedAt();
+            SetUpdatedAt();
+        }
+
+        public Course(Guid id, string discipline, string classNumber, int plannedClasses, int classesGiven, int attendanceNumber, double n1, double n2)
+        {
+            SetId(id);
+            Teacher = string.Empty;
+            Discipline = discipline;
+            ClassNumber = classNumber;
+            PlannedClasses = plannedClasses;
+            ClassesGiven = classesGiven;
+            AttendanceNumber = attendanceNumber;
+            N1 = n1;
+            N2 = n2;
+            Schedules = new List<SchedulesWeek>();
+            Exams = new List<Assessments>()
+            {
+                new Assessments(ExamsSemester.FirstExam),
+                new Assessments(ExamsSemester.SecondExam),
+                new Assessments(ExamsSemester.ThirdExam),
+                new Assessments(ExamsSemester.QuarterExam)
+            };
+            Works = new List<OtherWorks>();
+            AbsencesDate = new List<DateTime>();
+        }
+
 
         private double Truncate (double value, int decimalPlaces)
         {
