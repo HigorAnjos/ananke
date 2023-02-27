@@ -18,7 +18,7 @@ namespace Ananke.Application.Mappings
                 .ForMember(dest => dest.SecondExam, opt => opt.MapFrom(src => src.Exams[1]))
                 .ForMember(dest => dest.ThirdExam, opt => opt.MapFrom(src => src.Exams[2]))
                 .ForMember(dest => dest.QuarterExam, opt => opt.MapFrom(src => src.Exams[3]))
-                .ForMember(dest => dest.MediaSemester, opt => opt.MapFrom(src => src.CalcularMediaSemestral()))
+                .ForMember(dest => dest.MediaSemester, opt => opt.MapFrom(src => src.CalculateSemesterAverage()))
                 .ReverseMap();
         }
     }

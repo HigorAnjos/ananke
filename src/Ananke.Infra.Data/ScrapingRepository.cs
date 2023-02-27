@@ -87,7 +87,6 @@ namespace Ananke.Infra.Data
                 var key = $"{rowData["Disciplina"]} - {rowData["Turma"]}";
                 data[key] = rowData;
             }
-            var objeto = data;
         }
 
 

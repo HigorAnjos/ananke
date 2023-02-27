@@ -63,21 +63,21 @@ namespace Ananke.Domain.Entities
             return truncatedValue;
         }
 
-        private double CalcularMediaDasProvasNAsync(double NotaA, double NotaB)
+        private double CalculateEvidenceMediaAsync(double NotaA, double NotaB)
         {
             return (NotaA * 3.35 + NotaB * 3.35) / 6.7; 
         }
 
-        public double CalcularMediaSemestral()
+        public double CalculateSemesterAverage()
         {
-            var n1 = CalcularMediaDasProvasNAsync(Exams[0].Note, Exams[1].Note);
-            var n2 = CalcularMediaDasProvasNAsync(Exams[2].Note, Exams[3].Note);
+            var n1 = CalculateEvidenceMediaAsync(Exams[0].Note, Exams[1].Note);
+            var n2 = CalculateEvidenceMediaAsync(Exams[2].Note, Exams[3].Note);
             var media = n1 * 0.4 + n2 * 0.5;
             
             return Truncate(media, 2);
         }
 
-        public void SetNoteExam(ExamsSemester name, double note)
+        public void SetExamNotes(ExamsSemester name, double note)
         {
             if (Exams[0].Name == name)
             {
@@ -100,10 +100,10 @@ namespace Ananke.Domain.Entities
                 Exams[3].IsOficialNote = true;
             }
 
-            AtualizarNotasNaoOficial();
+            UpdateUnOfficialNotes();
         }
 
-        public void AtualizarNotasNaoOficial()
+        public void UpdateUnOfficialNotes()
         {
             double diff = 0.0;
             double totalNotaNaoOficial = 0.0;
@@ -118,10 +118,13 @@ namespace Ananke.Domain.Entities
                 }
             }
 
+            if (countTotalNotasNaoOficial <= 0)
+            {
+                throw new Exception("Todas as notas foram inseridas");
+            }
+
             var novaNotaMedia = (totalNotaNaoOficial + diff) / countTotalNotasNaoOficial;
             var novaNotaMediaTruncate = Truncate(novaNotaMedia, 2);
-
-
 
             foreach (var exam in Exams)
             {
