@@ -1,9 +1,6 @@
 ﻿using Ananke.Domain.Entities;
 using Ananke.Domain.Repository;
 using PuppeteerSharp;
-using System;
-using System.Data;
-using System.Runtime.InteropServices;
 
 namespace Ananke.Infra.Data
 {
@@ -17,8 +14,9 @@ namespace Ananke.Infra.Data
         public async Task<List<Course>> GetCoursesAsync()
         {
             var attempts = 0;
-            var error = "Scraping error";
-            while (attempts < 5)
+            var maxAttempts = 5;
+            var error = "";
+            while (attempts < maxAttempts)
             {
                 try
                 {
@@ -106,7 +104,6 @@ namespace Ananke.Infra.Data
 
             return data;
         }
-
 
         public static void DataTableCourse(ref List<Course> courses, Dictionary<string, Dictionary<string, string>> dataTable)
         {
