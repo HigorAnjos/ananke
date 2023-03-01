@@ -1,4 +1,5 @@
-﻿using Ananke.Application.Mappings;
+﻿using Ananke.Application.IServices;
+using Ananke.Application.Mappings;
 using Ananke.Application.Services;
 using Ananke.Domain.IServices;
 using Ananke.Domain.Repository;
@@ -13,6 +14,8 @@ namespace Presentation.IoC
         {
             services.AddScoped<ICourseService, CourseService>();
             services.AddScoped<IScrapingRepository, ScrapingRepository>();
+            services.AddScoped<IStudentServices, StudentServices>();
+
             services.AddAutoMapper(typeof(DomainToDTOMappingProfile));
 
             return services;

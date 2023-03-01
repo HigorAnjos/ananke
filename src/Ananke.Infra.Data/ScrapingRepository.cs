@@ -1,6 +1,7 @@
 ﻿using Ananke.Domain.Entities;
 using Ananke.Domain.Repository;
 using PuppeteerSharp;
+using static System.Net.WebRequestMethods;
 
 namespace Ananke.Infra.Data
 {
@@ -32,8 +33,12 @@ namespace Ananke.Infra.Data
 
                     DataTableCourse(ref courses, tableData);
 
-                    await CloseBrowserAsync(browser);
+                    await ObterGradeDeHorarios(home);
 
+                    TimeSpan ts = new TimeSpan(0, 1, 0);
+                    Thread.Sleep(ts);
+
+                    await CloseBrowserAsync(browser);
                     return courses;
                 }
                 catch (Exception err)
@@ -45,6 +50,34 @@ namespace Ananke.Infra.Data
             }
 
             throw new Exception($"Scraping error: {error}");
+        }
+
+        public static async Task<IPage> ObterGradeDeHorarios(IPage page)
+        {
+            var urlPage = "https://sol.pucgoias.edu.br/aluno/horarios/";
+
+            await page.GoToAsync(urlPage);
+
+            var queryXpath = "/html/body/div/div/div[2]";
+
+            await page.WaitForXPathAsync(queryXpath);
+            var rows = await page.QuerySelectorAllAsync("body > div > div > div.servicos > div");
+
+            var data = new Dictionary<string, Dictionary<string, string>>();
+            var rowData = new Dictionary<string, string>();
+            var current = "";
+
+            foreach (var row in rows)
+            {
+                var columns = await row.QuerySelectorAllAsync("div");
+
+                current += $"{rowData["Disciplina"]} - {rowData["Turma"]} - {rowData["Aulas Previstas"]} - {rowData["Aulas Ministradas"]} - {rowData["Número de Presenças"]} - {rowData["N1"]} - {rowData["N2"]} \n";
+                var key = $"{rowData["Disciplina"]} - {rowData["Turma"]}";
+                data[key] = rowData;
+            }
+
+
+            return page;
         }
 
         public static async Task<IPage> WaitAndClick(IPage home, string selector)
