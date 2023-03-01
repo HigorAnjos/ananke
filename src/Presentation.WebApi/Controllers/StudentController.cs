@@ -19,7 +19,7 @@ namespace Presentation.WebApi.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] StudentLoginRequest request)
         {
-            return new OkObjectResult("OK");
+            return new ObjectResult(await _studentServices.Login(request.Email, request.Password));
         }
 
         //[HttpPost]

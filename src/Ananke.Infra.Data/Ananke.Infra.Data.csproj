@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MongoDB.Driver" Version="2.19.0" />
     <PackageReference Include="PuppeteerSharp" Version="9.0.2" />
     <PackageReference Include="PuppeteerSharp.Contrib.Extensions" Version="5.0.0" />
   </ItemGroup>

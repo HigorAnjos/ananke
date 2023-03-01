@@ -14,7 +14,9 @@ namespace Presentation.IoC
         {
             services.AddScoped<ICourseService, CourseService>();
             services.AddScoped<IScrapingRepository, ScrapingRepository>();
-            services.AddScoped<IStudentServices, StudentServices>();
+            services.AddSingleton<IStudentServices, StudentServices>();
+            services.AddSingleton<IStudentRepository, StudentRepository>();
+            services.AddSingleton<ITokenGenerator, TokenGenerator>();
 
             services.AddAutoMapper(typeof(DomainToDTOMappingProfile));
 

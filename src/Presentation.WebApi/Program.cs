@@ -10,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.ConfigureDependencies();
+builder.Services.ConfigureTokenJwt();
 
 var app = builder.Build();
 

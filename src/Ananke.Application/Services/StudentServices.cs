@@ -1,10 +1,20 @@
 ﻿using Ananke.Application.IServices;
 using Ananke.Domain.Entities;
+using Ananke.Domain.Repository;
 
 namespace Ananke.Application.Services
 {
     public class StudentServices : IStudentServices
     {
+        private readonly ITokenGenerator _tokenGenerator;
+        private readonly IStudentRepository _studentRepository;
+
+        public StudentServices(ITokenGenerator tokenGenerator, IStudentRepository studentRepository)
+        {
+            _tokenGenerator = tokenGenerator;
+            _studentRepository = studentRepository;
+        }
+
         public Task<bool> DeleteStudent(Guid Id)
         {
             throw new NotImplementedException();
@@ -20,9 +30,18 @@ namespace Ananke.Application.Services
             throw new NotImplementedException();
         }
 
-        public Task<string> Login(string Email, string Password)
+        public Task<string> Login(string email, string password)
         {
-            throw new NotImplementedException();
+            //var studentFound = await _studentRepository.GetStudentByEmail(email);
+
+            //if (studentFound == null || studentFound.Password != password)
+            //{
+            //    throw new BadHttpRequestException("E-mail e/ou senha inválidos!");
+            //}
+
+            var student = new Student();
+            student.Password= "123456789";
+            return Task.FromResult(_tokenGenerator.GetToken(student));
         }
 
         public Task<bool> Register(Student ToCreate)
